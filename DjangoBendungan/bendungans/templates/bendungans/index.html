@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" />
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
+    <!-- Font Google -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet" />
+    <!-- Own CSS -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+    <title>Data Bendungan</title>
+  </head>
+
+  <body>
+    <!-- Container -->
+    <div class="container">
+      <div class="row my-2">
+        <div class="col-md">
+          <h3 class="text-center fw-bold text-uppercase">Data Bendungan</h3>
+          <hr />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-md">
+          <a href="{% url 'bendungans.add' %}" class="btn btn-primary"><i class="bi bi-person-plus-fill"></i>&nbsp;Tambah Data</a>
+          <a href="{% url 'bendungans.export_data' %}" target="_blank" class="btn btn-success ms-1"><i class="bi bi-file-earmark-spreadsheet-fill"></i>&nbsp;Ekspor ke Excel</a>
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-md">
+          <table id="data" class="table table-striped table-responsive table-hover text-center" style="width: 100%">
+            <thead class="table-dark">
+              <tr>
+                <th>Nama bendungan</th>
+                <th>Lokasi bendungan</th>
+                <th>Luas permukaan bendungan</th>
+                <th>Volume bendungan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            {% if bendungan_list %} {% for bendungan in bendungan_list %}
+            <tbody>
+              <tr>
+                <td>{{bendungan.nm_bendungan}}</td>
+                <td>{{bendungan.lk_bendungan}}</td>
+                <td>{{bendungan.luas_bendungan}}</td>
+                <td>{{bendungan.vlm_bendungan}}</td>
+                <td>
+                  <a href="{% url 'bendungans.edit' bendungan.id %}" class="btn btn-warning btn-sm" style="font-weight: 600"><i class="bi bi-pencil-square"></i>&nbsp;Ubah</a> |
+                  <a href="{% url 'bendungans.delete' bendungan.id %}" class="btn btn-danger btn-sm" style="font-weight: 600"><i class="bi bi-trash-fill"></i>&nbsp;Hapus</a>
+                </td>
+              </tr>
+            </tbody>
+            {% endfor %} {% else %}
+            <tbody>
+              <tr>
+                <td colspan="5">Tidak ada data yang tersedia</td>
+              </tr>
+            </tbody>
+            {% endif %}
+          </table>
+          <div class="col-md">
+            <a href="{% url 'index' %}" class="btn btn-secondary"><i class="bi bi-arrow-left-circle-fill"></i>&nbsp;Kembali</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Close Container -->
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <!-- Data Tables -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
+  </body>
+</html>
